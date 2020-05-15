@@ -1,0 +1,31 @@
+    <table class="table table-stripped table-hover">
+        <thead class="thead-light">
+            <tr class="table-bordered text-center">
+                <th>№</th>
+                <th>Адрес</th>
+                <th>Тема</th>
+                <th>Текст</th>
+                <th>Задержка</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody id="mailblock" class="table-bordered text-center">
+            {% for mail in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ mail.email }}</td>
+                <td>{{ mail.subject|truncatechars:20 }}</td>
+                <td>{{ mail.message|truncatechars:20 }}</td>
+                <td>{{ mail.delay }} с</td>
+                {% if mail.send_status == 1 %}
+                <td class="bg-warning status">Ожидание</td>
+                {% elif mail.send_status == 2 %}
+                <td class="bg-success status">Отправлено</td>
+                {% elif mail.send_status == 3 %}
+                <td class="bg-danger status">Ошибка</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+
